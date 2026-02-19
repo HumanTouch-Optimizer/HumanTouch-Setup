@@ -355,18 +355,18 @@ function Start-Installation {
 
                     $code = $proc.ExitCode
                     if ($code -eq 0) {
-                        Write-RSLog "`u{2713} Successfully installed: $($app.Name)"
-                        Set-RSStatusBadge -Id $app.Id -Text "`u{2713} Installed" -Color "#22C55E"
+                        Write-RSLog "$([char]0x2713) Successfully installed: $($app.Name)"
+                        Set-RSStatusBadge -Id $app.Id -Text "$([char]0x2713) Installed" -Color "#22C55E"
                         Set-OverlayApp -Name $app.Name -SubText "Successfully installed!"
                         $successCount++
                     } elseif ($code -eq -1978335189) {
                         Write-RSLog "Already up to date: $($app.Name)"
-                        Set-RSStatusBadge -Id $app.Id -Text "`u{2713} Up to date" -Color "#22C55E"
+                        Set-RSStatusBadge -Id $app.Id -Text "$([char]0x2713) Up to date" -Color "#22C55E"
                         Set-OverlayApp -Name $app.Name -SubText "Already up to date."
                         $skipCount++
                     } else {
-                        Write-RSLog "`u{2717} Exit code $code : $($app.Name)"
-                        Set-RSStatusBadge -Id $app.Id -Text "`u{2717} Failed ($code)" -Color "#EF4444"
+                        Write-RSLog "$([char]0x2717) Exit code $code : $($app.Name)"
+                        Set-RSStatusBadge -Id $app.Id -Text "$([char]0x2717) Failed ($code)" -Color "#EF4444"
                         Set-OverlayApp -Name $app.Name -SubText "Installation failed (exit code: $code)"
                         $failCount++
                     }
@@ -583,13 +583,13 @@ function Update-App {
                 -Wait -PassThru -WindowStyle Hidden
             
             if ($proc.ExitCode -eq 0) {
-                Write-RSLog "`u{2713} Successfully updated: $name"
+                Write-RSLog "$([char]0x2713) Successfully updated: $name"
                 $dispRef.Invoke([action]{
                     if ($updMap[$id]) { $updMap[$id].Visibility = [System.Windows.Visibility]::Collapsed }
                     $sBadge = $statusMap[$id]
                     if ($sBadge) {
                         $sBadge.Visibility = [System.Windows.Visibility]::Visible
-                        $sBadge.Child.Text = "`u{2713} Updated"
+                        $sBadge.Child.Text = "$([char]0x2713) Updated"
                         $sBadge.Child.Foreground = [System.Windows.Media.SolidColorBrush]([System.Windows.Media.ColorConverter]::ConvertFromString("#22C55E"))
                         $sBadge.Background = [System.Windows.Media.SolidColorBrush]([System.Windows.Media.ColorConverter]::ConvertFromString("#3322C55E"))
                         $sBadge.BorderBrush = [System.Windows.Media.SolidColorBrush]([System.Windows.Media.ColorConverter]::ConvertFromString("#5522C55E"))
@@ -637,12 +637,12 @@ function Update-App {
                 })
             }
         } catch {
-            Write-RSLog "`u{2717} Error updating ${name}: $($_.Exception.Message)"
+            Write-RSLog "$([char]0x2717) Error updating ${name}: $($_.Exception.Message)"
             $dispRef.Invoke([action]{
                 $sBadge = $statusMap[$id]
                 if ($sBadge) {
                     $sBadge.Visibility = [System.Windows.Visibility]::Visible
-                    $sBadge.Child.Text = "`u{2717} Error"
+                    $sBadge.Child.Text = "$([char]0x2717) Error"
                     $sBadge.Child.Foreground = [System.Windows.Media.SolidColorBrush]([System.Windows.Media.ColorConverter]::ConvertFromString("#EF4444"))
                     $sBadge.Background = [System.Windows.Media.SolidColorBrush]([System.Windows.Media.ColorConverter]::ConvertFromString("#33EF4444"))
                 }

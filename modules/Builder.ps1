@@ -47,7 +47,7 @@ function Initialize-AppList {
 
         $innerStack = New-Object System.Windows.Controls.StackPanel
 
-        # â”€â”€ Category Header â”€â”€
+        # -- Category Header --
         $headerBorder = New-Object System.Windows.Controls.Border
         $headerBorder.Padding = New-Object System.Windows.Thickness(12, 8, 12, 8)
         $headerBorder.BorderThickness = New-Object System.Windows.Thickness(0, 0, 0, 1)
@@ -78,7 +78,7 @@ function Initialize-AppList {
 
         # Icon
         $icon = New-Object System.Windows.Controls.TextBlock
-        $icon.Text = if ($catIcons.ContainsKey($category)) { "$($catIcons[$category])" } else { "â—" }
+        $icon.Text = if ($catIcons.ContainsKey($category)) { "$($catIcons[$category])" } else { [char]0x25CF }
         $icon.FontFamily = New-Object System.Windows.Media.FontFamily("Segoe MDL2 Assets")
         $icon.FontSize = 14
         $icon.Foreground = [System.Windows.Media.SolidColorBrush]([System.Windows.Media.ColorConverter]::ConvertFromString("#5B6CF9"))
@@ -111,7 +111,7 @@ function Initialize-AppList {
         $headerBorder.Child = $hGrid
         $innerStack.Children.Add($headerBorder) | Out-Null
 
-        # â”€â”€ App Checkboxes â”€â”€
+        # -- App Checkboxes --
         $appsScroll = New-Object System.Windows.Controls.ScrollViewer
         $appsScroll.VerticalScrollBarVisibility = "Auto"
         $appsScroll.HorizontalScrollBarVisibility = "Disabled"
@@ -147,7 +147,7 @@ function Initialize-AppList {
             $cb.Add_Unchecked({ Update-Counter })
             [System.Windows.Controls.Grid]::SetColumn($cb, 0)
 
-            # Status badge (shows "Installing...", "Updating...", "✓ Done" etc.)
+            # Status badge (shows "Installing...", "Updating...", "[Done]" etc.)
             $statusBadge = New-Object System.Windows.Controls.Border
             $statusBadge.CornerRadius = New-Object System.Windows.CornerRadius(6)
             $statusBadge.Padding = New-Object System.Windows.Thickness(6, 2, 6, 2)
@@ -199,7 +199,7 @@ function Initialize-AppList {
             $installedBadge.Child = $badgeStack
             [System.Windows.Controls.Grid]::SetColumn($installedBadge, 2)
 
-            # Update available indicator (hidden by default) — prominent orange
+            # Update available indicator (hidden by default) - prominent orange
             $updateBadge = New-Object System.Windows.Controls.Border
             $updateBadge.CornerRadius = New-Object System.Windows.CornerRadius(6)
             $updateBadge.Padding = New-Object System.Windows.Thickness(6, 2, 6, 2)

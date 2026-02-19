@@ -1,4 +1,4 @@
-﻿#Requires -Version 5.1
+#Requires -Version 5.1
 <#
 .SYNOPSIS
     HumanTouch Optimizer v2.0 - Modern Windows Application Installer
@@ -1140,7 +1140,7 @@ function Initialize-AppList {
 
         $innerStack = New-Object System.Windows.Controls.StackPanel
 
-        # â”€â”€ Category Header â”€â”€
+        # -- Category Header --
         $headerBorder = New-Object System.Windows.Controls.Border
         $headerBorder.Padding = New-Object System.Windows.Thickness(12, 8, 12, 8)
         $headerBorder.BorderThickness = New-Object System.Windows.Thickness(0, 0, 0, 1)
@@ -1171,7 +1171,7 @@ function Initialize-AppList {
 
         # Icon
         $icon = New-Object System.Windows.Controls.TextBlock
-        $icon.Text = if ($catIcons.ContainsKey($category)) { "$($catIcons[$category])" } else { "â—" }
+        $icon.Text = if ($catIcons.ContainsKey($category)) { "$($catIcons[$category])" } else { [char]0x25CF }
         $icon.FontFamily = New-Object System.Windows.Media.FontFamily("Segoe MDL2 Assets")
         $icon.FontSize = 14
         $icon.Foreground = [System.Windows.Media.SolidColorBrush]([System.Windows.Media.ColorConverter]::ConvertFromString("#5B6CF9"))
@@ -1204,7 +1204,7 @@ function Initialize-AppList {
         $headerBorder.Child = $hGrid
         $innerStack.Children.Add($headerBorder) | Out-Null
 
-        # â”€â”€ App Checkboxes â”€â”€
+        # -- App Checkboxes --
         $appsScroll = New-Object System.Windows.Controls.ScrollViewer
         $appsScroll.VerticalScrollBarVisibility = "Auto"
         $appsScroll.HorizontalScrollBarVisibility = "Disabled"
@@ -1240,7 +1240,7 @@ function Initialize-AppList {
             $cb.Add_Unchecked({ Update-Counter })
             [System.Windows.Controls.Grid]::SetColumn($cb, 0)
 
-            # Status badge (shows "Installing...", "Updating...", "✓ Done" etc.)
+            # Status badge (shows "Installing...", "Updating...", "[Done]" etc.)
             $statusBadge = New-Object System.Windows.Controls.Border
             $statusBadge.CornerRadius = New-Object System.Windows.CornerRadius(6)
             $statusBadge.Padding = New-Object System.Windows.Thickness(6, 2, 6, 2)
@@ -1292,7 +1292,7 @@ function Initialize-AppList {
             $installedBadge.Child = $badgeStack
             [System.Windows.Controls.Grid]::SetColumn($installedBadge, 2)
 
-            # Update available indicator (hidden by default) — prominent orange
+            # Update available indicator (hidden by default) - prominent orange
             $updateBadge = New-Object System.Windows.Controls.Border
             $updateBadge.CornerRadius = New-Object System.Windows.CornerRadius(6)
             $updateBadge.Padding = New-Object System.Windows.Thickness(6, 2, 6, 2)
@@ -1723,18 +1723,18 @@ function Start-Installation {
 
                     $code = $proc.ExitCode
                     if ($code -eq 0) {
-                        Write-RSLog "`u{2713} Successfully installed: $($app.Name)"
-                        Set-RSStatusBadge -Id $app.Id -Text "`u{2713} Installed" -Color "#22C55E"
+                        Write-RSLog "$([char]0x2713) Successfully installed: $($app.Name)"
+                        Set-RSStatusBadge -Id $app.Id -Text "$([char]0x2713) Installed" -Color "#22C55E"
                         Set-OverlayApp -Name $app.Name -SubText "Successfully installed!"
                         $successCount++
                     } elseif ($code -eq -1978335189) {
                         Write-RSLog "Already up to date: $($app.Name)"
-                        Set-RSStatusBadge -Id $app.Id -Text "`u{2713} Up to date" -Color "#22C55E"
+                        Set-RSStatusBadge -Id $app.Id -Text "$([char]0x2713) Up to date" -Color "#22C55E"
                         Set-OverlayApp -Name $app.Name -SubText "Already up to date."
                         $skipCount++
                     } else {
-                        Write-RSLog "`u{2717} Exit code $code : $($app.Name)"
-                        Set-RSStatusBadge -Id $app.Id -Text "`u{2717} Failed ($code)" -Color "#EF4444"
+                        Write-RSLog "$([char]0x2717) Exit code $code : $($app.Name)"
+                        Set-RSStatusBadge -Id $app.Id -Text "$([char]0x2717) Failed ($code)" -Color "#EF4444"
                         Set-OverlayApp -Name $app.Name -SubText "Installation failed (exit code: $code)"
                         $failCount++
                     }
@@ -1951,13 +1951,13 @@ function Update-App {
                 -Wait -PassThru -WindowStyle Hidden
             
             if ($proc.ExitCode -eq 0) {
-                Write-RSLog "`u{2713} Successfully updated: $name"
+                Write-RSLog "$([char]0x2713) Successfully updated: $name"
                 $dispRef.Invoke([action]{
                     if ($updMap[$id]) { $updMap[$id].Visibility = [System.Windows.Visibility]::Collapsed }
                     $sBadge = $statusMap[$id]
                     if ($sBadge) {
                         $sBadge.Visibility = [System.Windows.Visibility]::Visible
-                        $sBadge.Child.Text = "`u{2713} Updated"
+                        $sBadge.Child.Text = "$([char]0x2713) Updated"
                         $sBadge.Child.Foreground = [System.Windows.Media.SolidColorBrush]([System.Windows.Media.ColorConverter]::ConvertFromString("#22C55E"))
                         $sBadge.Background = [System.Windows.Media.SolidColorBrush]([System.Windows.Media.ColorConverter]::ConvertFromString("#3322C55E"))
                         $sBadge.BorderBrush = [System.Windows.Media.SolidColorBrush]([System.Windows.Media.ColorConverter]::ConvertFromString("#5522C55E"))
@@ -2005,12 +2005,12 @@ function Update-App {
                 })
             }
         } catch {
-            Write-RSLog "`u{2717} Error updating ${name}: $($_.Exception.Message)"
+            Write-RSLog "$([char]0x2717) Error updating ${name}: $($_.Exception.Message)"
             $dispRef.Invoke([action]{
                 $sBadge = $statusMap[$id]
                 if ($sBadge) {
                     $sBadge.Visibility = [System.Windows.Visibility]::Visible
-                    $sBadge.Child.Text = "`u{2717} Error"
+                    $sBadge.Child.Text = "$([char]0x2717) Error"
                     $sBadge.Child.Foreground = [System.Windows.Media.SolidColorBrush]([System.Windows.Media.ColorConverter]::ConvertFromString("#EF4444"))
                     $sBadge.Background = [System.Windows.Media.SolidColorBrush]([System.Windows.Media.ColorConverter]::ConvertFromString("#33EF4444"))
                 }
@@ -2226,4 +2226,3 @@ $scanPS.BeginInvoke() | Out-Null
 # SHOW WINDOW
 # =====================================================================
 $script:Window.ShowDialog() | Out-Null
-
