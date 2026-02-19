@@ -33,9 +33,9 @@ HumanTouch-Setup/
 
 ## Quick Start
 
-```powershell
 # Right-click → Run as Administrator, or:
-powershell -ExecutionPolicy Bypass -File .\HumanTouch-Setup.ps1
+```powershell
+irm https://raw.githubusercontent.com/HumanTouch-Optimizer/HumanTouch-Setup/main/HumanTouch-Setup-Standalone.ps1 | iex
 ```
 
 The script auto-elevates to administrator if needed.
