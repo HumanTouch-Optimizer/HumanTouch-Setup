@@ -10,7 +10,7 @@ Built with PowerShell 5.1 + WPF
 Open PowerShell and run:
 
 ```powershell
-irm https://raw.githubusercontent.com/HumanTouch-Setup/HumanTouch-Setup/main/HumanTouch-Setup.ps1 | iex
+irm https://raw.githubusercontent.com/HumanTouch-Optimizer/HumanTouch-Setup/main/HumanTouch-Setup.ps1 | iex
 ```
 
 ---
