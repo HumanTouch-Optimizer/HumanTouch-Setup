@@ -182,7 +182,11 @@ $script:BuiltInPresets = @{
     WindowStyle="None"
     AllowsTransparency="True"
     Background="Transparent"
-    FontFamily="Segoe UI">
+    FontFamily="Segoe UI Variable Display, Segoe UI, sans-serif"
+    TextOptions.TextFormattingMode="Display"
+    TextOptions.TextRenderingMode="ClearType"
+    UseLayoutRounding="True"
+    SnapsToDevicePixels="True">
 
     <Window.Resources>
         <DropShadowEffect x:Key="WindowShadow" BlurRadius="30" ShadowDepth="6" Direction="270" Color="#000000" Opacity="0.7"/>
@@ -261,19 +265,20 @@ $script:BuiltInPresets = @{
             <Setter Property="FontSize" Value="12"/>
             <Setter Property="Cursor" Value="Hand"/>
             <Setter Property="Margin" Value="0,1,0,1"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="CheckBox">
-                        <Border x:Name="RootBorder" Background="Transparent" CornerRadius="6" Padding="8,5,8,5">
+                        <Border x:Name="RootBorder" Background="Transparent" CornerRadius="6" Padding="8,5,8,5" HorizontalAlignment="Stretch">
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="32"/>
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
                                 <Border x:Name="ToggleTrack" Grid.Column="0" Width="30" Height="16" CornerRadius="8"
-                                        Background="#1E2240" BorderBrush="#2A3060" BorderThickness="1" VerticalAlignment="Center">
+                                        Background="#40141D45" BorderBrush="#55243875" BorderThickness="1" VerticalAlignment="Center">
                                     <Border x:Name="ToggleThumb" Width="10" Height="10" CornerRadius="5"
-                                            Background="#3A4070" HorizontalAlignment="Left" Margin="2,0,0,0"/>
+                                            Background="#507A8CFF" HorizontalAlignment="Left" Margin="2,0,0,0"/>
                                 </Border>
                                 <ContentPresenter Grid.Column="1" VerticalAlignment="Center" Margin="8,0,0,0"/>
                             </Grid>
@@ -292,10 +297,10 @@ $script:BuiltInPresets = @{
                                 <Setter TargetName="ToggleThumb" Property="Background" Value="White"/>
                                 <Setter TargetName="ToggleThumb" Property="HorizontalAlignment" Value="Right"/>
                                 <Setter TargetName="ToggleThumb" Property="Margin" Value="0,0,2,0"/>
-                                <Setter TargetName="RootBorder" Property="Background" Value="#131830"/>
+                                <Setter TargetName="RootBorder" Property="Background" Value="#30141D45"/>
                             </Trigger>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="RootBorder" Property="Background" Value="#141928"/>
+                                <Setter TargetName="RootBorder" Property="Background" Value="#40203065"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -351,8 +356,8 @@ $script:BuiltInPresets = @{
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
-                        <Border x:Name="BtnBorder" CornerRadius="10" Background="#141830"
-                                BorderBrush="#2A3060" BorderThickness="1">
+                        <Border x:Name="BtnBorder" CornerRadius="10" Background="#4010183A"
+                                BorderBrush="#443B4BE8" BorderThickness="1">
                             <Grid>
                                 <Border x:Name="HoverOverlay" CornerRadius="10" Opacity="0">
                                     <Border.Background>
@@ -387,8 +392,8 @@ $script:BuiltInPresets = @{
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
-                        <Border x:Name="IcBorder" CornerRadius="10" Background="#141830"
-                                BorderBrush="#1E2448" BorderThickness="1">
+                        <Border x:Name="IcBorder" CornerRadius="10" Background="#4010183A"
+                                BorderBrush="#443B4BE8" BorderThickness="1">
                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </Border>
                         <ControlTemplate.Triggers>
@@ -457,27 +462,27 @@ $script:BuiltInPresets = @{
         <Border CornerRadius="14" ClipToBounds="True" BorderThickness="1" BorderBrush="#22FFFFFF">
             <Border.Background>
                 <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                    <GradientStop Color="#0B0F1E" Offset="0"/>
-                    <GradientStop Color="#0E1328" Offset="0.6"/>
-                    <GradientStop Color="#0A0D1C" Offset="1"/>
+                    <GradientStop Color="#04091A" Offset="0"/>
+                    <GradientStop Color="#091330" Offset="0.6"/>
+                    <GradientStop Color="#050A20" Offset="1"/>
                 </LinearGradientBrush>
             </Border.Background>
             <Grid>
                 <!-- Glassmorphism glow orbs -->
-                <Ellipse Width="400" Height="400" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="-120,-100,0,0" IsHitTestVisible="False">
+                <Ellipse Width="600" Height="600" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="-150,-150,0,0" IsHitTestVisible="False">
                     <Ellipse.Fill>
                         <RadialGradientBrush>
-                            <GradientStop Color="#185B6CF9" Offset="0"/>
-                            <GradientStop Color="#009B6CFF" Offset="0.6"/>
+                            <GradientStop Color="#253B82F6" Offset="0"/>
+                            <GradientStop Color="#003B82F6" Offset="0.7"/>
                             <GradientStop Color="Transparent" Offset="1"/>
                         </RadialGradientBrush>
                     </Ellipse.Fill>
                 </Ellipse>
-                <Ellipse Width="350" Height="350" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,-80,-60" IsHitTestVisible="False">
+                <Ellipse Width="500" Height="500" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,-100,-80" IsHitTestVisible="False">
                     <Ellipse.Fill>
                         <RadialGradientBrush>
-                            <GradientStop Color="#127A8CFF" Offset="0"/>
-                            <GradientStop Color="#065B6CF9" Offset="0.5"/>
+                            <GradientStop Color="#20818CF8" Offset="0"/>
+                            <GradientStop Color="#086366F1" Offset="0.5"/>
                             <GradientStop Color="Transparent" Offset="1"/>
                         </RadialGradientBrush>
                     </Ellipse.Fill>
@@ -493,8 +498,8 @@ $script:BuiltInPresets = @{
                 <Border Grid.Row="0">
                     <Border.Background>
                         <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
-                            <GradientStop Color="#0F1428" Offset="0"/>
-                            <GradientStop Color="#141932" Offset="1"/>
+                            <GradientStop Color="#550D1535" Offset="0"/>
+                            <GradientStop Color="#40121C4A" Offset="1"/>
                         </LinearGradientBrush>
                     </Border.Background>
                     <Grid>
@@ -557,11 +562,11 @@ $script:BuiltInPresets = @{
                     </Border>
 
                     <!-- BOTTOM: Control panel -->
-                    <Border Grid.Row="1" BorderThickness="0,1,0,0" BorderBrush="#141828">
+                    <Border Grid.Row="1" BorderThickness="0,1,0,0" BorderBrush="#33243875">
                         <Border.Background>
                             <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                                <GradientStop Color="#0C1020" Offset="0"/>
-                                <GradientStop Color="#0A0D1C" Offset="1"/>
+                                <GradientStop Color="#400A102A" Offset="0"/>
+                                <GradientStop Color="#60050818" Offset="1"/>
                             </LinearGradientBrush>
                         </Border.Background>
                         <Grid Margin="16,8,16,6">
@@ -570,43 +575,50 @@ $script:BuiltInPresets = @{
                                 <RowDefinition Height="*"/>
                             </Grid.RowDefinitions>
 
-                            <!-- ROW 0: All buttons in a flowing horizontal strip -->
-                            <ScrollViewer Grid.Row="0" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled" Margin="0,0,0,6">
-                                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                                    <!-- Preset icon buttons -->
-                                    <TextBlock Text="PRESETS" Foreground="#2E3460" FontSize="9" FontWeight="Bold"
-                                               VerticalAlignment="Center" Margin="0,0,10,0"/>
-                                    <Button x:Name="BtnPresetGaming" Style="{StaticResource IconBtn}" Width="38" Height="38" Margin="0,0,5,0" ToolTip="Gaming Preset"/>
-                                    <Button x:Name="BtnPresetWork" Style="{StaticResource IconBtn}" Width="38" Height="38" Margin="0,0,5,0" ToolTip="Work Preset"/>
-                                    <Button x:Name="BtnPresetMedia" Style="{StaticResource IconBtn}" Width="38" Height="38" Margin="0,0,10,0" ToolTip="Media Preset"/>
+                            <!-- ROW 0: Organized Grid Layout -->
+                            <Grid Grid.Row="0" Margin="0,0,0,12">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/> <!-- Left: Presets -->
+                                    <ColumnDefinition Width="*"/>    <!-- Spacer -->
+                                    <ColumnDefinition Width="Auto"/> <!-- Center: Primary Actions -->
+                                    <ColumnDefinition Width="*"/>    <!-- Spacer -->
+                                    <ColumnDefinition Width="Auto"/> <!-- Right: Selected Count -->
+                                </Grid.ColumnDefinitions>
 
-                                    <Border Width="1" Height="24" Background="#1E2448" Margin="0,0,10,0"/>
+                                <!-- LEFT: Presets -->
+                                <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center">
+                                    <TextBlock Text="PRESETS" Foreground="#4A5A9C" FontSize="10" FontWeight="Bold" VerticalAlignment="Center" Margin="0,0,12,0"/>
+                                    <Button x:Name="BtnPresetGaming" Style="{StaticResource IconBtn}" Width="36" Height="36" Margin="0,0,6,0" ToolTip="Gaming Preset"/>
+                                    <Button x:Name="BtnPresetWork" Style="{StaticResource IconBtn}" Width="36" Height="36" Margin="0,0,6,0" ToolTip="Work Preset"/>
+                                    <Button x:Name="BtnPresetMedia" Style="{StaticResource IconBtn}" Width="36" Height="36" Margin="0,0,12,0" ToolTip="Media Preset"/>
+                                    
+                                    <Border Width="1" Height="20" Background="#24346B" Margin="0,0,12,0"/>
+                                    
+                                    <Button x:Name="BtnSavePreset" Style="{StaticResource SecondaryBtn}" Content="Save" Width="64" Height="32" Margin="0,0,6,0" ToolTip="Save current selection as preset"/>
+                                    <Button x:Name="BtnLoadPreset" Style="{StaticResource SecondaryBtn}" Content="Load" Width="64" Height="32" Margin="0,0,0,0" ToolTip="Load a saved preset"/>
+                                </StackPanel>
 
-                                    <Button x:Name="BtnSavePreset" Style="{StaticResource SecondaryBtn}" Content="Save" Width="64" Height="32" Margin="0,0,5,0" ToolTip="Save current selection as preset"/>
-                                    <Button x:Name="BtnLoadPreset" Style="{StaticResource SecondaryBtn}" Content="Load" Width="64" Height="32" Margin="0,0,10,0" ToolTip="Load a saved preset"/>
+                                <!-- CENTER: Main Action Buttons -->
+                                <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center">
+                                    <Button x:Name="BtnInstall" Style="{StaticResource PrimaryBtn}" Content="Install Selected" Width="160" Height="40" FontSize="13" FontWeight="Bold" IsEnabled="False" Margin="0,0,12,0" ToolTip="Begin installation of selected applications"/>
+                                    <Button x:Name="BtnCheckUpdates" Style="{StaticResource SecondaryBtn}" Content="Check Updates" Width="110" Height="34" Margin="0,0,8,0" ToolTip="Check for available updates for installed applications"/>
+                                    <Button x:Name="BtnClear" Style="{StaticResource SecondaryBtn}" Content="Clear All" Width="80" Height="34" Margin="0,0,0,0" ToolTip="Deselect all applications"/>
+                                </StackPanel>
 
-                                    <Border Width="1" Height="24" Background="#1E2448" Margin="0,0,10,0"/>
-
-                                    <!-- Action buttons -->
-                                    <Button x:Name="BtnInstall" Style="{StaticResource PrimaryBtn}" Content="Install Selected" Width="130" Height="34" IsEnabled="False" Margin="0,0,6,0"/>
-                                    <Button x:Name="BtnCheckUpdates" Style="{StaticResource SecondaryBtn}" Content="Check Updates" Width="110" Height="32" Margin="0,0,6,0" ToolTip="Check for available updates for installed applications"/>
-                                    <Button x:Name="BtnClear" Style="{StaticResource SecondaryBtn}" Content="Clear All" Width="80" Height="32" Margin="0,0,10,0"/>
-
-                                    <Border Width="1" Height="24" Background="#1E2448" Margin="0,0,10,0"/>
-
-                                    <!-- Selected counter -->
-                                    <TextBlock Text="SELECTED" Foreground="#2E3460" FontSize="9" FontWeight="Bold" VerticalAlignment="Center" Margin="0,0,8,0"/>
-                                    <Border CornerRadius="14" Padding="10,3,10,3">
+                                <!-- RIGHT: Selected Counter -->
+                                <StackPanel Grid.Column="4" Orientation="Horizontal" VerticalAlignment="Center">
+                                    <TextBlock Text="SELECTED" Foreground="#4A5A9C" FontSize="10" FontWeight="Bold" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                                    <Border CornerRadius="16" Padding="14,4,14,4">
                                         <Border.Background>
-                                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
-                                                <GradientStop Color="#1E2C70" Offset="0"/>
-                                                <GradientStop Color="#253480" Offset="1"/>
+                                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                                <GradientStop Color="#3B4BE8" Offset="0"/>
+                                                <GradientStop Color="#5360EE" Offset="1"/>
                                             </LinearGradientBrush>
                                         </Border.Background>
-                                        <TextBlock x:Name="SelectedCounter" Text="0" FontSize="14" FontWeight="Bold" Foreground="#7B8CFF"/>
+                                        <TextBlock x:Name="SelectedCounter" Text="0" FontSize="15" FontWeight="Bold" Foreground="White" VerticalAlignment="Center"/>
                                     </Border>
                                 </StackPanel>
-                            </ScrollViewer>
+                            </Grid>
 
                             <!-- ROW 1: Status / Progress / Log (stretches full width) -->
                             <Border Grid.Row="1" CornerRadius="8" Padding="10,5,10,5" BorderThickness="1" BorderBrush="#1A1E3A">
@@ -806,12 +818,12 @@ $script:BuiltInPresets = @{
                 </Border>
 
                 <!-- FOOTER -->
-                <Border Grid.Row="2" BorderThickness="0,1,0,0" BorderBrush="#0E1220">
+                <Border Grid.Row="2" BorderThickness="0,1,0,0" BorderBrush="#221A2855">
                     <Border.Background>
                         <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
-                            <GradientStop Color="#080B18" Offset="0"/>
-                            <GradientStop Color="#0A0D1E" Offset="0.5"/>
-                            <GradientStop Color="#080B18" Offset="1"/>
+                            <GradientStop Color="#60040816" Offset="0"/>
+                            <GradientStop Color="#80060A1D" Offset="0.5"/>
+                            <GradientStop Color="#60040816" Offset="1"/>
                         </LinearGradientBrush>
                     </Border.Background>
                     <Grid Margin="18,0,18,0">
@@ -1109,22 +1121,21 @@ function Initialize-AppList {
         # Each category = vertical card containing header + apps
         $card                  = New-Object System.Windows.Controls.Border
         $card.CornerRadius     = New-Object System.Windows.CornerRadius(12)
-        $card.MinWidth         = 220
-        $card.MaxWidth         = 260
+        $card.Width            = 240
         $card.Margin           = New-Object System.Windows.Thickness(0, 0, 10, 10)
         $card.Padding          = New-Object System.Windows.Thickness(0, 0, 0, 6)
         $card.BorderThickness  = New-Object System.Windows.Thickness(1)
-        $card.BorderBrush      = [System.Windows.Media.SolidColorBrush]([System.Windows.Media.ColorConverter]::ConvertFromString("#1E2858"))
-        $card.VerticalAlignment = [System.Windows.VerticalAlignment]::Stretch
+        $card.BorderBrush      = [System.Windows.Media.SolidColorBrush]([System.Windows.Media.ColorConverter]::ConvertFromString("#2E3A75"))
+        $card.VerticalAlignment = [System.Windows.VerticalAlignment]::Top
 
         $cardBg             = New-Object System.Windows.Media.LinearGradientBrush
         $cardBg.StartPoint  = New-Object System.Windows.Point(0, 0)
         $cardBg.EndPoint    = New-Object System.Windows.Point(0, 1)
         $s1 = New-Object System.Windows.Media.GradientStop
-        $s1.Color  = [System.Windows.Media.ColorConverter]::ConvertFromString("#CC161B30")
+        $s1.Color  = [System.Windows.Media.ColorConverter]::ConvertFromString("#55121B3B")
         $s1.Offset = 0
         $s2 = New-Object System.Windows.Media.GradientStop
-        $s2.Color  = [System.Windows.Media.ColorConverter]::ConvertFromString("#CC111628")
+        $s2.Color  = [System.Windows.Media.ColorConverter]::ConvertFromString("#440C1229")
         $s2.Offset = 1
         $cardBg.GradientStops.Add($s1) | Out-Null
         $cardBg.GradientStops.Add($s2) | Out-Null
@@ -1138,6 +1149,20 @@ function Initialize-AppList {
         $shadow.Opacity      = 0.3
         $card.Effect         = $shadow
 
+        # Hover Effects
+        $card.Add_MouseEnter({
+            $this.BorderBrush = [System.Windows.Media.SolidColorBrush]([System.Windows.Media.ColorConverter]::ConvertFromString("#3B4BE8"))
+            $this.Effect.Color = [System.Windows.Media.ColorConverter]::ConvertFromString("#3B4BE8")
+            $this.Effect.BlurRadius = 16
+            $this.Effect.Opacity = 0.25
+        })
+        $card.Add_MouseLeave({
+            $this.BorderBrush = [System.Windows.Media.SolidColorBrush]([System.Windows.Media.ColorConverter]::ConvertFromString("#1E2858"))
+            $this.Effect.Color = [System.Windows.Media.Colors]::Black
+            $this.Effect.BlurRadius = 12
+            $this.Effect.Opacity = 0.3
+        })
+
         $innerStack = New-Object System.Windows.Controls.StackPanel
 
         # -- Category Header --
@@ -1149,10 +1174,10 @@ function Initialize-AppList {
         $hBg.StartPoint = New-Object System.Windows.Point(0, 0)
         $hBg.EndPoint   = New-Object System.Windows.Point(1, 0)
         $hs1 = New-Object System.Windows.Media.GradientStop
-        $hs1.Color  = [System.Windows.Media.ColorConverter]::ConvertFromString("#13182E")
+        $hs1.Color  = [System.Windows.Media.ColorConverter]::ConvertFromString("#80121B3D")
         $hs1.Offset = 0
         $hs2 = New-Object System.Windows.Media.GradientStop
-        $hs2.Color  = [System.Windows.Media.ColorConverter]::ConvertFromString("#0F1424")
+        $hs2.Color  = [System.Windows.Media.ColorConverter]::ConvertFromString("#600D132D")
         $hs2.Offset = 1
         $hBg.GradientStops.Add($hs1) | Out-Null
         $hBg.GradientStops.Add($hs2) | Out-Null
@@ -1205,9 +1230,6 @@ function Initialize-AppList {
         $innerStack.Children.Add($headerBorder) | Out-Null
 
         # -- App Checkboxes --
-        $appsScroll = New-Object System.Windows.Controls.ScrollViewer
-        $appsScroll.VerticalScrollBarVisibility = "Auto"
-        $appsScroll.HorizontalScrollBarVisibility = "Disabled"
 
         $appsPanel = New-Object System.Windows.Controls.StackPanel
         $appsPanel.Margin = New-Object System.Windows.Thickness(6, 4, 6, 0)
@@ -1278,17 +1300,8 @@ function Initialize-AppList {
             $checkIcon.FontSize = 9
             $checkIcon.Foreground = [System.Windows.Media.SolidColorBrush]([System.Windows.Media.ColorConverter]::ConvertFromString("#22C55E"))
             $checkIcon.VerticalAlignment = [System.Windows.VerticalAlignment]::Center
-            $checkIcon.Margin = New-Object System.Windows.Thickness(0, 0, 3, 0)
-
-            $badgeText = New-Object System.Windows.Controls.TextBlock
-            $badgeText.Text = "Installed"
-            $badgeText.FontSize = 9
-            $badgeText.FontWeight = [System.Windows.FontWeights]::SemiBold
-            $badgeText.Foreground = [System.Windows.Media.SolidColorBrush]([System.Windows.Media.ColorConverter]::ConvertFromString("#22C55E"))
-            $badgeText.VerticalAlignment = [System.Windows.VerticalAlignment]::Center
-
             $badgeStack.Children.Add($checkIcon) | Out-Null
-            $badgeStack.Children.Add($badgeText) | Out-Null
+            $installedBadge.ToolTip = "Installed"
             $installedBadge.Child = $badgeStack
             [System.Windows.Controls.Grid]::SetColumn($installedBadge, 2)
 
@@ -1354,8 +1367,7 @@ function Initialize-AppList {
             $appsPanel.Children.Add($appCard) | Out-Null
         }
 
-        $appsScroll.Content = $appsPanel
-        $innerStack.Children.Add($appsScroll) | Out-Null
+        $innerStack.Children.Add($appsPanel) | Out-Null
 
         $card.Child = $innerStack
         $script:AppListPanel.Children.Add($card) | Out-Null
@@ -1535,11 +1547,20 @@ function Start-Installation {
         -ProgressText "0 / $($selectedApps.Count)" -ShowProgressBar
     Start-OverlayDotsAnimation -BaseText "Please wait"
 
-    # Dim all selected app cards
+    # Highlight all selected app cards and show 'Queued'
     $script:Window.Dispatcher.Invoke([action]{
         foreach ($app in $selectedApps) {
             $card = $script:AppCardMap[$app.Id]
-            if ($card) { $card.Opacity = 0.4 }
+            if ($card) { $card.Opacity = 0.8 }
+
+            $sBadge = $script:StatusBadgeMap[$app.Id]
+            if ($sBadge) {
+                $sBadge.Visibility = [System.Windows.Visibility]::Visible
+                $sBadge.Child.Text = "Queued"
+                $sBadge.Child.Foreground = [System.Windows.Media.SolidColorBrush]([System.Windows.Media.ColorConverter]::ConvertFromString("#A0ABC0"))
+                $sBadge.Background = [System.Windows.Media.SolidColorBrush]([System.Windows.Media.ColorConverter]::ConvertFromString("#333A4560"))
+                $sBadge.BorderBrush = [System.Windows.Media.SolidColorBrush]([System.Windows.Media.ColorConverter]::ConvertFromString("#553A4560"))
+            }
         }
     })
 
@@ -1827,37 +1848,46 @@ function Start-UpdateCheck {
             })
         }
 
+        $out = ""
         try {
-            $out = & winget list --upgrade-available --accept-source-agreements 2>&1 | Out-String
-        } catch {
-            $out = ""
-        }
+            $tmpFile = New-TemporaryFile
+            $proc = Start-Process -FilePath "winget" -ArgumentList "list --upgrade-available --accept-source-agreements" -Wait -WindowStyle Hidden -PassThru -RedirectStandardOutput $tmpFile.FullName
+            $out = Get-Content $tmpFile.FullName -Raw
+            Remove-Item $tmpFile.FullName -Force -ErrorAction SilentlyContinue
+        } catch {}
 
         $foundAny = $false
+        $updIds = [System.Collections.Generic.List[string]]::new()
         foreach ($cat in $appCategories.Keys) {
             foreach ($app in $appCategories[$cat]) {
                 if ($out -match [regex]::Escape($app.Id)) {
                     $foundAny = $true
-                    $dispRef.Invoke([action]{
-                        # Show update badge
-                        if ($updMap[$app.Id]) {
-                            $updMap[$app.Id].Visibility = [System.Windows.Visibility]::Visible
-                        }
-                        # Highlight card with orange background
-                        $card = $cardMap[$app.Id]
-                        if ($card) {
-                            $card.Background = [System.Windows.Media.SolidColorBrush](
-                                [System.Windows.Media.ColorConverter]::ConvertFromString("#18F59E0B"))
-                            $card.BorderThickness = New-Object System.Windows.Thickness(2, 0, 0, 0)
-                            $card.BorderBrush = [System.Windows.Media.SolidColorBrush](
-                                [System.Windows.Media.ColorConverter]::ConvertFromString("#55F59E0B"))
-                            $card.CornerRadius = New-Object System.Windows.CornerRadius(4)
-                            $card.Padding = New-Object System.Windows.Thickness(6, 2, 4, 2)
-                            $card.Margin = New-Object System.Windows.Thickness(0, 1, 0, 1)
-                        }
-                    })
+                    $updIds.Add($app.Id)
                 }
             }
+        }
+
+        if ($updIds.Count -gt 0) {
+            $dispRef.Invoke([action]{
+                foreach ($id in $updIds) {
+                    # Show update badge
+                    if ($updMap[$id]) {
+                        $updMap[$id].Visibility = [System.Windows.Visibility]::Visible
+                    }
+                    # Highlight card with orange background
+                    $card = $cardMap[$id]
+                    if ($card) {
+                        $card.Background = [System.Windows.Media.SolidColorBrush](
+                            [System.Windows.Media.ColorConverter]::ConvertFromString("#18F59E0B"))
+                        $card.BorderThickness = New-Object System.Windows.Thickness(2, 0, 0, 0)
+                        $card.BorderBrush = [System.Windows.Media.SolidColorBrush](
+                            [System.Windows.Media.ColorConverter]::ConvertFromString("#55F59E0B"))
+                        $card.CornerRadius = New-Object System.Windows.CornerRadius(4)
+                        $card.Padding = New-Object System.Windows.Thickness(6, 2, 4, 2)
+                        $card.Margin = New-Object System.Windows.Thickness(0, 1, 0, 1)
+                    }
+                }
+            })
         }
 
         if ($foundAny) {
@@ -2173,14 +2203,37 @@ $scanRS.SessionStateProxy.SetVariable("logRef",     $script:LogBox)
 $scanRS.SessionStateProxy.SetVariable("appCategories", $script:AppCategories)
 
 $scanCode = {
-    # Single winget call to get ALL installed apps (fast!)
     $dispRef.Invoke([action]{ $statusRef.Text = "Scanning installed applications..." })
 
+    $installedNames = [System.Collections.Generic.List[string]]::new()
+
+    # 1. Registry Check (Fast, catches externally installed apps)
     try {
-        $allInstalled = & winget list --accept-source-agreements 2>&1 | Out-String
-    } catch {
-        $allInstalled = ""
-    }
+        $paths = @(
+            "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\*",
+            "HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\*",
+            "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\*"
+        )
+        $regApps = Get-ItemProperty $paths -ErrorAction SilentlyContinue | Select-Object -ExpandProperty DisplayName | Where-Object { $_ -ne $null }
+        if ($regApps) { foreach ($r in $regApps) { $installedNames.Add($r) } }
+    } catch {}
+
+    # 2. Appx Check (For Store apps like WhatsApp, Spotify)
+    try {
+        $appxApps = Get-AppxPackage -ErrorAction SilentlyContinue | Select-Object -ExpandProperty Name | Where-Object { $_ -ne $null }
+        if ($appxApps) { foreach ($a in $appxApps) { $installedNames.Add($a) } }
+    } catch {}
+
+    $installedString = $installedNames -join "`n"
+
+    # 3. Winget Check (Hidden Start-Process prevents UI freeze)
+    $wingetOut = ""
+    try {
+        $tmpFile = New-TemporaryFile
+        $proc = Start-Process -FilePath "winget" -ArgumentList "list --accept-source-agreements" -Wait -WindowStyle Hidden -PassThru -RedirectStandardOutput $tmpFile.FullName
+        $wingetOut = Get-Content $tmpFile.FullName -Raw
+        Remove-Item $tmpFile.FullName -Force -ErrorAction SilentlyContinue
+    } catch {}
 
     $allApps = @()
     foreach ($cat in $appCategories.Keys) {
@@ -2190,24 +2243,52 @@ $scanCode = {
     }
 
     $installedCount = 0
+    $foundIds = [System.Collections.Generic.List[string]]::new()
 
     foreach ($app in $allApps) {
-        if ($allInstalled -match [regex]::Escape($app.Id)) {
+        $found = $false
+        
+        # Method A: Check via Winget output
+        if ($wingetOut -and $wingetOut -match [regex]::Escape($app.Id)) {
+            $found = $true
+        } else {
+            # Method B: Smart Name Match (Registry/Appx)
+            $searchName = $app.Name
+            # Normalize common mismatches
+            if ($searchName -match "Node\.js") { $searchName = "Node.js" }
+            elseif ($searchName -eq "GOG Galaxy") { $searchName = "GOG Galaxy" }
+            elseif ($searchName -eq "EA App") { $searchName = "EA app" }
+            elseif ($searchName -eq "Battle.net") { $searchName = "Battle.net" }
+            elseif ($searchName -eq "Python 3") { $searchName = "Python 3" }
+
+            # Safe regex check
+            if ($searchName.Length -gt 3 -and $installedString -match "(?i)" + [regex]::Escape($searchName)) {
+                $found = $true
+            }
+        }
+
+        if ($found) {
             $installedCount++
-            $dispRef.Invoke([action]{
+            $foundIds.Add($app.Id)
+        }
+    }
+
+    if ($foundIds.Count -gt 0) {
+        $dispRef.Invoke([action]{
+            foreach ($id in $foundIds) {
                 # Show badge
-                $badge = $badgeMap[$app.Id]
+                $badge = $badgeMap[$id]
                 if ($badge) {
                     $badge.Visibility = [System.Windows.Visibility]::Visible
                 }
-                # Dim the card row to show it's already installed
-                $card = $cardMap[$app.Id]
+                # Slightly highlight the card row to show it's already installed
+                $card = $cardMap[$id]
                 if ($card) {
-                    $card.Opacity = 0.55
+                    $card.Opacity = 1.0
                     $card.Background = [System.Windows.Media.SolidColorBrush]([System.Windows.Media.ColorConverter]::ConvertFromString("#0A22C55E"))
                 }
-            }.GetNewClosure())
-        }
+            }
+        }.GetNewClosure())
     }
 
     $ts = Get-Date -Format 'HH:mm:ss'

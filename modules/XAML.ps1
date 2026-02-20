@@ -16,7 +16,11 @@
     WindowStyle="None"
     AllowsTransparency="True"
     Background="Transparent"
-    FontFamily="Segoe UI">
+    FontFamily="Segoe UI Variable Display, Segoe UI, sans-serif"
+    TextOptions.TextFormattingMode="Display"
+    TextOptions.TextRenderingMode="ClearType"
+    UseLayoutRounding="True"
+    SnapsToDevicePixels="True">
 
     <Window.Resources>
         <DropShadowEffect x:Key="WindowShadow" BlurRadius="30" ShadowDepth="6" Direction="270" Color="#000000" Opacity="0.7"/>
@@ -95,19 +99,20 @@
             <Setter Property="FontSize" Value="12"/>
             <Setter Property="Cursor" Value="Hand"/>
             <Setter Property="Margin" Value="0,1,0,1"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="CheckBox">
-                        <Border x:Name="RootBorder" Background="Transparent" CornerRadius="6" Padding="8,5,8,5">
+                        <Border x:Name="RootBorder" Background="Transparent" CornerRadius="6" Padding="8,5,8,5" HorizontalAlignment="Stretch">
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="32"/>
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
                                 <Border x:Name="ToggleTrack" Grid.Column="0" Width="30" Height="16" CornerRadius="8"
-                                        Background="#1E2240" BorderBrush="#2A3060" BorderThickness="1" VerticalAlignment="Center">
+                                        Background="#40141D45" BorderBrush="#55243875" BorderThickness="1" VerticalAlignment="Center">
                                     <Border x:Name="ToggleThumb" Width="10" Height="10" CornerRadius="5"
-                                            Background="#3A4070" HorizontalAlignment="Left" Margin="2,0,0,0"/>
+                                            Background="#507A8CFF" HorizontalAlignment="Left" Margin="2,0,0,0"/>
                                 </Border>
                                 <ContentPresenter Grid.Column="1" VerticalAlignment="Center" Margin="8,0,0,0"/>
                             </Grid>
@@ -126,10 +131,10 @@
                                 <Setter TargetName="ToggleThumb" Property="Background" Value="White"/>
                                 <Setter TargetName="ToggleThumb" Property="HorizontalAlignment" Value="Right"/>
                                 <Setter TargetName="ToggleThumb" Property="Margin" Value="0,0,2,0"/>
-                                <Setter TargetName="RootBorder" Property="Background" Value="#131830"/>
+                                <Setter TargetName="RootBorder" Property="Background" Value="#30141D45"/>
                             </Trigger>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="RootBorder" Property="Background" Value="#141928"/>
+                                <Setter TargetName="RootBorder" Property="Background" Value="#40203065"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -185,8 +190,8 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
-                        <Border x:Name="BtnBorder" CornerRadius="10" Background="#141830"
-                                BorderBrush="#2A3060" BorderThickness="1">
+                        <Border x:Name="BtnBorder" CornerRadius="10" Background="#4010183A"
+                                BorderBrush="#443B4BE8" BorderThickness="1">
                             <Grid>
                                 <Border x:Name="HoverOverlay" CornerRadius="10" Opacity="0">
                                     <Border.Background>
@@ -221,8 +226,8 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
-                        <Border x:Name="IcBorder" CornerRadius="10" Background="#141830"
-                                BorderBrush="#1E2448" BorderThickness="1">
+                        <Border x:Name="IcBorder" CornerRadius="10" Background="#4010183A"
+                                BorderBrush="#443B4BE8" BorderThickness="1">
                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </Border>
                         <ControlTemplate.Triggers>
@@ -291,27 +296,27 @@
         <Border CornerRadius="14" ClipToBounds="True" BorderThickness="1" BorderBrush="#22FFFFFF">
             <Border.Background>
                 <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                    <GradientStop Color="#0B0F1E" Offset="0"/>
-                    <GradientStop Color="#0E1328" Offset="0.6"/>
-                    <GradientStop Color="#0A0D1C" Offset="1"/>
+                    <GradientStop Color="#04091A" Offset="0"/>
+                    <GradientStop Color="#091330" Offset="0.6"/>
+                    <GradientStop Color="#050A20" Offset="1"/>
                 </LinearGradientBrush>
             </Border.Background>
             <Grid>
                 <!-- Glassmorphism glow orbs -->
-                <Ellipse Width="400" Height="400" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="-120,-100,0,0" IsHitTestVisible="False">
+                <Ellipse Width="600" Height="600" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="-150,-150,0,0" IsHitTestVisible="False">
                     <Ellipse.Fill>
                         <RadialGradientBrush>
-                            <GradientStop Color="#185B6CF9" Offset="0"/>
-                            <GradientStop Color="#009B6CFF" Offset="0.6"/>
+                            <GradientStop Color="#253B82F6" Offset="0"/>
+                            <GradientStop Color="#003B82F6" Offset="0.7"/>
                             <GradientStop Color="Transparent" Offset="1"/>
                         </RadialGradientBrush>
                     </Ellipse.Fill>
                 </Ellipse>
-                <Ellipse Width="350" Height="350" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,-80,-60" IsHitTestVisible="False">
+                <Ellipse Width="500" Height="500" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,-100,-80" IsHitTestVisible="False">
                     <Ellipse.Fill>
                         <RadialGradientBrush>
-                            <GradientStop Color="#127A8CFF" Offset="0"/>
-                            <GradientStop Color="#065B6CF9" Offset="0.5"/>
+                            <GradientStop Color="#20818CF8" Offset="0"/>
+                            <GradientStop Color="#086366F1" Offset="0.5"/>
                             <GradientStop Color="Transparent" Offset="1"/>
                         </RadialGradientBrush>
                     </Ellipse.Fill>
@@ -327,8 +332,8 @@
                 <Border Grid.Row="0">
                     <Border.Background>
                         <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
-                            <GradientStop Color="#0F1428" Offset="0"/>
-                            <GradientStop Color="#141932" Offset="1"/>
+                            <GradientStop Color="#550D1535" Offset="0"/>
+                            <GradientStop Color="#40121C4A" Offset="1"/>
                         </LinearGradientBrush>
                     </Border.Background>
                     <Grid>
@@ -391,11 +396,11 @@
                     </Border>
 
                     <!-- BOTTOM: Control panel -->
-                    <Border Grid.Row="1" BorderThickness="0,1,0,0" BorderBrush="#141828">
+                    <Border Grid.Row="1" BorderThickness="0,1,0,0" BorderBrush="#33243875">
                         <Border.Background>
                             <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                                <GradientStop Color="#0C1020" Offset="0"/>
-                                <GradientStop Color="#0A0D1C" Offset="1"/>
+                                <GradientStop Color="#400A102A" Offset="0"/>
+                                <GradientStop Color="#60050818" Offset="1"/>
                             </LinearGradientBrush>
                         </Border.Background>
                         <Grid Margin="16,8,16,6">
@@ -404,43 +409,50 @@
                                 <RowDefinition Height="*"/>
                             </Grid.RowDefinitions>
 
-                            <!-- ROW 0: All buttons in a flowing horizontal strip -->
-                            <ScrollViewer Grid.Row="0" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled" Margin="0,0,0,6">
-                                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                                    <!-- Preset icon buttons -->
-                                    <TextBlock Text="PRESETS" Foreground="#2E3460" FontSize="9" FontWeight="Bold"
-                                               VerticalAlignment="Center" Margin="0,0,10,0"/>
-                                    <Button x:Name="BtnPresetGaming" Style="{StaticResource IconBtn}" Width="38" Height="38" Margin="0,0,5,0" ToolTip="Gaming Preset"/>
-                                    <Button x:Name="BtnPresetWork" Style="{StaticResource IconBtn}" Width="38" Height="38" Margin="0,0,5,0" ToolTip="Work Preset"/>
-                                    <Button x:Name="BtnPresetMedia" Style="{StaticResource IconBtn}" Width="38" Height="38" Margin="0,0,10,0" ToolTip="Media Preset"/>
+                            <!-- ROW 0: Organized Grid Layout -->
+                            <Grid Grid.Row="0" Margin="0,0,0,12">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/> <!-- Left: Presets -->
+                                    <ColumnDefinition Width="*"/>    <!-- Spacer -->
+                                    <ColumnDefinition Width="Auto"/> <!-- Center: Primary Actions -->
+                                    <ColumnDefinition Width="*"/>    <!-- Spacer -->
+                                    <ColumnDefinition Width="Auto"/> <!-- Right: Selected Count -->
+                                </Grid.ColumnDefinitions>
 
-                                    <Border Width="1" Height="24" Background="#1E2448" Margin="0,0,10,0"/>
+                                <!-- LEFT: Presets -->
+                                <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center">
+                                    <TextBlock Text="PRESETS" Foreground="#4A5A9C" FontSize="10" FontWeight="Bold" VerticalAlignment="Center" Margin="0,0,12,0"/>
+                                    <Button x:Name="BtnPresetGaming" Style="{StaticResource IconBtn}" Width="36" Height="36" Margin="0,0,6,0" ToolTip="Gaming Preset"/>
+                                    <Button x:Name="BtnPresetWork" Style="{StaticResource IconBtn}" Width="36" Height="36" Margin="0,0,6,0" ToolTip="Work Preset"/>
+                                    <Button x:Name="BtnPresetMedia" Style="{StaticResource IconBtn}" Width="36" Height="36" Margin="0,0,12,0" ToolTip="Media Preset"/>
+                                    
+                                    <Border Width="1" Height="20" Background="#24346B" Margin="0,0,12,0"/>
+                                    
+                                    <Button x:Name="BtnSavePreset" Style="{StaticResource SecondaryBtn}" Content="Save" Width="64" Height="32" Margin="0,0,6,0" ToolTip="Save current selection as preset"/>
+                                    <Button x:Name="BtnLoadPreset" Style="{StaticResource SecondaryBtn}" Content="Load" Width="64" Height="32" Margin="0,0,0,0" ToolTip="Load a saved preset"/>
+                                </StackPanel>
 
-                                    <Button x:Name="BtnSavePreset" Style="{StaticResource SecondaryBtn}" Content="Save" Width="64" Height="32" Margin="0,0,5,0" ToolTip="Save current selection as preset"/>
-                                    <Button x:Name="BtnLoadPreset" Style="{StaticResource SecondaryBtn}" Content="Load" Width="64" Height="32" Margin="0,0,10,0" ToolTip="Load a saved preset"/>
+                                <!-- CENTER: Main Action Buttons -->
+                                <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center">
+                                    <Button x:Name="BtnInstall" Style="{StaticResource PrimaryBtn}" Content="Install Selected" Width="160" Height="40" FontSize="13" FontWeight="Bold" IsEnabled="False" Margin="0,0,12,0" ToolTip="Begin installation of selected applications"/>
+                                    <Button x:Name="BtnCheckUpdates" Style="{StaticResource SecondaryBtn}" Content="Check Updates" Width="110" Height="34" Margin="0,0,8,0" ToolTip="Check for available updates for installed applications"/>
+                                    <Button x:Name="BtnClear" Style="{StaticResource SecondaryBtn}" Content="Clear All" Width="80" Height="34" Margin="0,0,0,0" ToolTip="Deselect all applications"/>
+                                </StackPanel>
 
-                                    <Border Width="1" Height="24" Background="#1E2448" Margin="0,0,10,0"/>
-
-                                    <!-- Action buttons -->
-                                    <Button x:Name="BtnInstall" Style="{StaticResource PrimaryBtn}" Content="Install Selected" Width="130" Height="34" IsEnabled="False" Margin="0,0,6,0"/>
-                                    <Button x:Name="BtnCheckUpdates" Style="{StaticResource SecondaryBtn}" Content="Check Updates" Width="110" Height="32" Margin="0,0,6,0" ToolTip="Check for available updates for installed applications"/>
-                                    <Button x:Name="BtnClear" Style="{StaticResource SecondaryBtn}" Content="Clear All" Width="80" Height="32" Margin="0,0,10,0"/>
-
-                                    <Border Width="1" Height="24" Background="#1E2448" Margin="0,0,10,0"/>
-
-                                    <!-- Selected counter -->
-                                    <TextBlock Text="SELECTED" Foreground="#2E3460" FontSize="9" FontWeight="Bold" VerticalAlignment="Center" Margin="0,0,8,0"/>
-                                    <Border CornerRadius="14" Padding="10,3,10,3">
+                                <!-- RIGHT: Selected Counter -->
+                                <StackPanel Grid.Column="4" Orientation="Horizontal" VerticalAlignment="Center">
+                                    <TextBlock Text="SELECTED" Foreground="#4A5A9C" FontSize="10" FontWeight="Bold" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                                    <Border CornerRadius="16" Padding="14,4,14,4">
                                         <Border.Background>
-                                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
-                                                <GradientStop Color="#1E2C70" Offset="0"/>
-                                                <GradientStop Color="#253480" Offset="1"/>
+                                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                                <GradientStop Color="#3B4BE8" Offset="0"/>
+                                                <GradientStop Color="#5360EE" Offset="1"/>
                                             </LinearGradientBrush>
                                         </Border.Background>
-                                        <TextBlock x:Name="SelectedCounter" Text="0" FontSize="14" FontWeight="Bold" Foreground="#7B8CFF"/>
+                                        <TextBlock x:Name="SelectedCounter" Text="0" FontSize="15" FontWeight="Bold" Foreground="White" VerticalAlignment="Center"/>
                                     </Border>
                                 </StackPanel>
-                            </ScrollViewer>
+                            </Grid>
 
                             <!-- ROW 1: Status / Progress / Log (stretches full width) -->
                             <Border Grid.Row="1" CornerRadius="8" Padding="10,5,10,5" BorderThickness="1" BorderBrush="#1A1E3A">
@@ -640,12 +652,12 @@
                 </Border>
 
                 <!-- FOOTER -->
-                <Border Grid.Row="2" BorderThickness="0,1,0,0" BorderBrush="#0E1220">
+                <Border Grid.Row="2" BorderThickness="0,1,0,0" BorderBrush="#221A2855">
                     <Border.Background>
                         <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
-                            <GradientStop Color="#080B18" Offset="0"/>
-                            <GradientStop Color="#0A0D1E" Offset="0.5"/>
-                            <GradientStop Color="#080B18" Offset="1"/>
+                            <GradientStop Color="#60040816" Offset="0"/>
+                            <GradientStop Color="#80060A1D" Offset="0.5"/>
+                            <GradientStop Color="#60040816" Offset="1"/>
                         </LinearGradientBrush>
                     </Border.Background>
                     <Grid Margin="18,0,18,0">

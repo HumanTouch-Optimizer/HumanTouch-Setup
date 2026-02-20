@@ -167,11 +167,20 @@ function Start-Installation {
         -ProgressText "0 / $($selectedApps.Count)" -ShowProgressBar
     Start-OverlayDotsAnimation -BaseText "Please wait"
 
-    # Dim all selected app cards
+    # Highlight all selected app cards and show 'Queued'
     $script:Window.Dispatcher.Invoke([action]{
         foreach ($app in $selectedApps) {
             $card = $script:AppCardMap[$app.Id]
-            if ($card) { $card.Opacity = 0.4 }
+            if ($card) { $card.Opacity = 0.8 }
+
+            $sBadge = $script:StatusBadgeMap[$app.Id]
+            if ($sBadge) {
+                $sBadge.Visibility = [System.Windows.Visibility]::Visible
+                $sBadge.Child.Text = "Queued"
+                $sBadge.Child.Foreground = [System.Windows.Media.SolidColorBrush]([System.Windows.Media.ColorConverter]::ConvertFromString("#A0ABC0"))
+                $sBadge.Background = [System.Windows.Media.SolidColorBrush]([System.Windows.Media.ColorConverter]::ConvertFromString("#333A4560"))
+                $sBadge.BorderBrush = [System.Windows.Media.SolidColorBrush]([System.Windows.Media.ColorConverter]::ConvertFromString("#553A4560"))
+            }
         }
     })
 
@@ -459,37 +468,46 @@ function Start-UpdateCheck {
             })
         }
 
+        $out = ""
         try {
-            $out = & winget list --upgrade-available --accept-source-agreements 2>&1 | Out-String
-        } catch {
-            $out = ""
-        }
+            $tmpFile = New-TemporaryFile
+            $proc = Start-Process -FilePath "winget" -ArgumentList "list --upgrade-available --accept-source-agreements" -Wait -WindowStyle Hidden -PassThru -RedirectStandardOutput $tmpFile.FullName
+            $out = Get-Content $tmpFile.FullName -Raw
+            Remove-Item $tmpFile.FullName -Force -ErrorAction SilentlyContinue
+        } catch {}
 
         $foundAny = $false
+        $updIds = [System.Collections.Generic.List[string]]::new()
         foreach ($cat in $appCategories.Keys) {
             foreach ($app in $appCategories[$cat]) {
                 if ($out -match [regex]::Escape($app.Id)) {
                     $foundAny = $true
-                    $dispRef.Invoke([action]{
-                        # Show update badge
-                        if ($updMap[$app.Id]) {
-                            $updMap[$app.Id].Visibility = [System.Windows.Visibility]::Visible
-                        }
-                        # Highlight card with orange background
-                        $card = $cardMap[$app.Id]
-                        if ($card) {
-                            $card.Background = [System.Windows.Media.SolidColorBrush](
-                                [System.Windows.Media.ColorConverter]::ConvertFromString("#18F59E0B"))
-                            $card.BorderThickness = New-Object System.Windows.Thickness(2, 0, 0, 0)
-                            $card.BorderBrush = [System.Windows.Media.SolidColorBrush](
-                                [System.Windows.Media.ColorConverter]::ConvertFromString("#55F59E0B"))
-                            $card.CornerRadius = New-Object System.Windows.CornerRadius(4)
-                            $card.Padding = New-Object System.Windows.Thickness(6, 2, 4, 2)
-                            $card.Margin = New-Object System.Windows.Thickness(0, 1, 0, 1)
-                        }
-                    })
+                    $updIds.Add($app.Id)
                 }
             }
+        }
+
+        if ($updIds.Count -gt 0) {
+            $dispRef.Invoke([action]{
+                foreach ($id in $updIds) {
+                    # Show update badge
+                    if ($updMap[$id]) {
+                        $updMap[$id].Visibility = [System.Windows.Visibility]::Visible
+                    }
+                    # Highlight card with orange background
+                    $card = $cardMap[$id]
+                    if ($card) {
+                        $card.Background = [System.Windows.Media.SolidColorBrush](
+                            [System.Windows.Media.ColorConverter]::ConvertFromString("#18F59E0B"))
+                        $card.BorderThickness = New-Object System.Windows.Thickness(2, 0, 0, 0)
+                        $card.BorderBrush = [System.Windows.Media.SolidColorBrush](
+                            [System.Windows.Media.ColorConverter]::ConvertFromString("#55F59E0B"))
+                        $card.CornerRadius = New-Object System.Windows.CornerRadius(4)
+                        $card.Padding = New-Object System.Windows.Thickness(6, 2, 4, 2)
+                        $card.Margin = New-Object System.Windows.Thickness(0, 1, 0, 1)
+                    }
+                }
+            })
         }
 
         if ($foundAny) {

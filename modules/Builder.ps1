@@ -16,22 +16,21 @@ function Initialize-AppList {
         # Each category = vertical card containing header + apps
         $card                  = New-Object System.Windows.Controls.Border
         $card.CornerRadius     = New-Object System.Windows.CornerRadius(12)
-        $card.MinWidth         = 220
-        $card.MaxWidth         = 260
+        $card.Width            = 240
         $card.Margin           = New-Object System.Windows.Thickness(0, 0, 10, 10)
         $card.Padding          = New-Object System.Windows.Thickness(0, 0, 0, 6)
         $card.BorderThickness  = New-Object System.Windows.Thickness(1)
-        $card.BorderBrush      = [System.Windows.Media.SolidColorBrush]([System.Windows.Media.ColorConverter]::ConvertFromString("#1E2858"))
-        $card.VerticalAlignment = [System.Windows.VerticalAlignment]::Stretch
+        $card.BorderBrush      = [System.Windows.Media.SolidColorBrush]([System.Windows.Media.ColorConverter]::ConvertFromString("#2E3A75"))
+        $card.VerticalAlignment = [System.Windows.VerticalAlignment]::Top
 
         $cardBg             = New-Object System.Windows.Media.LinearGradientBrush
         $cardBg.StartPoint  = New-Object System.Windows.Point(0, 0)
         $cardBg.EndPoint    = New-Object System.Windows.Point(0, 1)
         $s1 = New-Object System.Windows.Media.GradientStop
-        $s1.Color  = [System.Windows.Media.ColorConverter]::ConvertFromString("#CC161B30")
+        $s1.Color  = [System.Windows.Media.ColorConverter]::ConvertFromString("#55121B3B")
         $s1.Offset = 0
         $s2 = New-Object System.Windows.Media.GradientStop
-        $s2.Color  = [System.Windows.Media.ColorConverter]::ConvertFromString("#CC111628")
+        $s2.Color  = [System.Windows.Media.ColorConverter]::ConvertFromString("#440C1229")
         $s2.Offset = 1
         $cardBg.GradientStops.Add($s1) | Out-Null
         $cardBg.GradientStops.Add($s2) | Out-Null
@@ -45,6 +44,20 @@ function Initialize-AppList {
         $shadow.Opacity      = 0.3
         $card.Effect         = $shadow
 
+        # Hover Effects
+        $card.Add_MouseEnter({
+            $this.BorderBrush = [System.Windows.Media.SolidColorBrush]([System.Windows.Media.ColorConverter]::ConvertFromString("#3B4BE8"))
+            $this.Effect.Color = [System.Windows.Media.ColorConverter]::ConvertFromString("#3B4BE8")
+            $this.Effect.BlurRadius = 16
+            $this.Effect.Opacity = 0.25
+        })
+        $card.Add_MouseLeave({
+            $this.BorderBrush = [System.Windows.Media.SolidColorBrush]([System.Windows.Media.ColorConverter]::ConvertFromString("#1E2858"))
+            $this.Effect.Color = [System.Windows.Media.Colors]::Black
+            $this.Effect.BlurRadius = 12
+            $this.Effect.Opacity = 0.3
+        })
+
         $innerStack = New-Object System.Windows.Controls.StackPanel
 
         # -- Category Header --
@@ -56,10 +69,10 @@ function Initialize-AppList {
         $hBg.StartPoint = New-Object System.Windows.Point(0, 0)
         $hBg.EndPoint   = New-Object System.Windows.Point(1, 0)
         $hs1 = New-Object System.Windows.Media.GradientStop
-        $hs1.Color  = [System.Windows.Media.ColorConverter]::ConvertFromString("#13182E")
+        $hs1.Color  = [System.Windows.Media.ColorConverter]::ConvertFromString("#80121B3D")
         $hs1.Offset = 0
         $hs2 = New-Object System.Windows.Media.GradientStop
-        $hs2.Color  = [System.Windows.Media.ColorConverter]::ConvertFromString("#0F1424")
+        $hs2.Color  = [System.Windows.Media.ColorConverter]::ConvertFromString("#600D132D")
         $hs2.Offset = 1
         $hBg.GradientStops.Add($hs1) | Out-Null
         $hBg.GradientStops.Add($hs2) | Out-Null
@@ -112,9 +125,6 @@ function Initialize-AppList {
         $innerStack.Children.Add($headerBorder) | Out-Null
 
         # -- App Checkboxes --
-        $appsScroll = New-Object System.Windows.Controls.ScrollViewer
-        $appsScroll.VerticalScrollBarVisibility = "Auto"
-        $appsScroll.HorizontalScrollBarVisibility = "Disabled"
 
         $appsPanel = New-Object System.Windows.Controls.StackPanel
         $appsPanel.Margin = New-Object System.Windows.Thickness(6, 4, 6, 0)
@@ -185,17 +195,8 @@ function Initialize-AppList {
             $checkIcon.FontSize = 9
             $checkIcon.Foreground = [System.Windows.Media.SolidColorBrush]([System.Windows.Media.ColorConverter]::ConvertFromString("#22C55E"))
             $checkIcon.VerticalAlignment = [System.Windows.VerticalAlignment]::Center
-            $checkIcon.Margin = New-Object System.Windows.Thickness(0, 0, 3, 0)
-
-            $badgeText = New-Object System.Windows.Controls.TextBlock
-            $badgeText.Text = "Installed"
-            $badgeText.FontSize = 9
-            $badgeText.FontWeight = [System.Windows.FontWeights]::SemiBold
-            $badgeText.Foreground = [System.Windows.Media.SolidColorBrush]([System.Windows.Media.ColorConverter]::ConvertFromString("#22C55E"))
-            $badgeText.VerticalAlignment = [System.Windows.VerticalAlignment]::Center
-
             $badgeStack.Children.Add($checkIcon) | Out-Null
-            $badgeStack.Children.Add($badgeText) | Out-Null
+            $installedBadge.ToolTip = "Installed"
             $installedBadge.Child = $badgeStack
             [System.Windows.Controls.Grid]::SetColumn($installedBadge, 2)
 
@@ -261,8 +262,7 @@ function Initialize-AppList {
             $appsPanel.Children.Add($appCard) | Out-Null
         }
 
-        $appsScroll.Content = $appsPanel
-        $innerStack.Children.Add($appsScroll) | Out-Null
+        $innerStack.Children.Add($appsPanel) | Out-Null
 
         $card.Child = $innerStack
         $script:AppListPanel.Children.Add($card) | Out-Null

@@ -234,14 +234,37 @@ $scanRS.SessionStateProxy.SetVariable("logRef",     $script:LogBox)
 $scanRS.SessionStateProxy.SetVariable("appCategories", $script:AppCategories)
 
 $scanCode = {
-    # Single winget call to get ALL installed apps (fast!)
     $dispRef.Invoke([action]{ $statusRef.Text = "Scanning installed applications..." })
 
+    $installedNames = [System.Collections.Generic.List[string]]::new()
+
+    # 1. Registry Check (Fast, catches externally installed apps)
     try {
-        $allInstalled = & winget list --accept-source-agreements 2>&1 | Out-String
-    } catch {
-        $allInstalled = ""
-    }
+        $paths = @(
+            "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\*",
+            "HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\*",
+            "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\*"
+        )
+        $regApps = Get-ItemProperty $paths -ErrorAction SilentlyContinue | Select-Object -ExpandProperty DisplayName | Where-Object { $_ -ne $null }
+        if ($regApps) { foreach ($r in $regApps) { $installedNames.Add($r) } }
+    } catch {}
+
+    # 2. Appx Check (For Store apps like WhatsApp, Spotify)
+    try {
+        $appxApps = Get-AppxPackage -ErrorAction SilentlyContinue | Select-Object -ExpandProperty Name | Where-Object { $_ -ne $null }
+        if ($appxApps) { foreach ($a in $appxApps) { $installedNames.Add($a) } }
+    } catch {}
+
+    $installedString = $installedNames -join "`n"
+
+    # 3. Winget Check (Hidden Start-Process prevents UI freeze)
+    $wingetOut = ""
+    try {
+        $tmpFile = New-TemporaryFile
+        $proc = Start-Process -FilePath "winget" -ArgumentList "list --accept-source-agreements" -Wait -WindowStyle Hidden -PassThru -RedirectStandardOutput $tmpFile.FullName
+        $wingetOut = Get-Content $tmpFile.FullName -Raw
+        Remove-Item $tmpFile.FullName -Force -ErrorAction SilentlyContinue
+    } catch {}
 
     $allApps = @()
     foreach ($cat in $appCategories.Keys) {
@@ -251,24 +274,52 @@ $scanCode = {
     }
 
     $installedCount = 0
+    $foundIds = [System.Collections.Generic.List[string]]::new()
 
     foreach ($app in $allApps) {
-        if ($allInstalled -match [regex]::Escape($app.Id)) {
+        $found = $false
+        
+        # Method A: Check via Winget output
+        if ($wingetOut -and $wingetOut -match [regex]::Escape($app.Id)) {
+            $found = $true
+        } else {
+            # Method B: Smart Name Match (Registry/Appx)
+            $searchName = $app.Name
+            # Normalize common mismatches
+            if ($searchName -match "Node\.js") { $searchName = "Node.js" }
+            elseif ($searchName -eq "GOG Galaxy") { $searchName = "GOG Galaxy" }
+            elseif ($searchName -eq "EA App") { $searchName = "EA app" }
+            elseif ($searchName -eq "Battle.net") { $searchName = "Battle.net" }
+            elseif ($searchName -eq "Python 3") { $searchName = "Python 3" }
+
+            # Safe regex check
+            if ($searchName.Length -gt 3 -and $installedString -match "(?i)" + [regex]::Escape($searchName)) {
+                $found = $true
+            }
+        }
+
+        if ($found) {
             $installedCount++
-            $dispRef.Invoke([action]{
+            $foundIds.Add($app.Id)
+        }
+    }
+
+    if ($foundIds.Count -gt 0) {
+        $dispRef.Invoke([action]{
+            foreach ($id in $foundIds) {
                 # Show badge
-                $badge = $badgeMap[$app.Id]
+                $badge = $badgeMap[$id]
                 if ($badge) {
                     $badge.Visibility = [System.Windows.Visibility]::Visible
                 }
-                # Dim the card row to show it's already installed
-                $card = $cardMap[$app.Id]
+                # Slightly highlight the card row to show it's already installed
+                $card = $cardMap[$id]
                 if ($card) {
-                    $card.Opacity = 0.55
+                    $card.Opacity = 1.0
                     $card.Background = [System.Windows.Media.SolidColorBrush]([System.Windows.Media.ColorConverter]::ConvertFromString("#0A22C55E"))
                 }
-            }.GetNewClosure())
-        }
+            }
+        }.GetNewClosure())
     }
 
     $ts = Get-Date -Format 'HH:mm:ss'
